@@ -1,4 +1,3 @@
-/// The [Cart] class holds a list of cart items saved by the user.
 class Cart {
   final List<int> _cartItems = [];
 

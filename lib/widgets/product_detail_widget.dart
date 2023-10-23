@@ -1,15 +1,13 @@
-import 'package:badges/badges.dart' as b;
-import 'package:apptesoritoslau/app_theme.dart';
+import 'package:apptesoritoslau/services/app_theme.dart';
+import 'package:apptesoritoslau/widgets/appbar_widget.dart';
 import 'package:apptesoritoslau/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/cart_bloc.dart';
-import 'bloc/cart_event.dart';
-import 'bloc/cart_state.dart';
-import 'checkout_widget.dart';
-import 'models/product.dart';
-import 'widgets/count_controller.dart';
+import '../bloc/cart_bloc.dart';
+import '../bloc/cart_event.dart';
+import '../models/product.dart';
+import 'count_controller.dart';
 
 class ProductDetailWidget extends StatefulWidget {
   const ProductDetailWidget({Key? key, required this.product}) : super(key: key);
@@ -33,71 +31,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> with TickerPr
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: AppTheme.of(context).secondaryBackground,
-        automaticallyImplyLeading: false,
-        leading: InkWell(
-          onTap: () async {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back_rounded,
-            color: AppTheme.of(context).secondaryText,
-            size: 24,
-          ),
-        ),
-        title: Text(
-          ' ${widget.product.name}',
-          style: AppTheme.of(context).subtitle2.override(
-                fontFamily: 'Lexend Deca',
-                color: Color(0xFF151B1E),
-                fontSize: 26,
-                fontWeight: FontWeight.w500,
-              ),
-        ),
-        actions: [
-          BlocBuilder<CartBloc, CartState>(builder: (_, cartState) {
-            List<Product> cartItem = cartState.cartItem;
-            return Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 8, 24, 0),
-              child: b.Badge(
-                badgeContent: Text(
-                  '${cartItem.length}',
-                  style: AppTheme.of(context).bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                      ),
-                ),
-                showBadge: true,
-                shape: b.BadgeShape.circle,
-                badgeColor: AppTheme.of(context).primaryColor,
-                elevation: 4,
-                padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                position: b.BadgePosition.topEnd(),
-                animationType: b.BadgeAnimationType.scale,
-                toAnimate: true,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.shopping_cart_outlined,
-                    color: AppTheme.of(context).secondaryText,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CheckoutWidget(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            );
-          }),
-        ],
-        centerTitle: true,
-        elevation: 0,
-      ),
+      appBar: const AppBarWidget(title: "Product Detail"),
       backgroundColor: AppTheme.of(context).secondaryBackground,
       body: Column(
         mainAxisSize: MainAxisSize.max,
@@ -116,7 +50,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> with TickerPr
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: Image.network(
-                          widget.product.image,
+                          widget.product.url,
                           width: double.infinity,
                           height: 300,
                           fit: BoxFit.cover,
@@ -211,9 +145,8 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> with TickerPr
                     ),
                     MyButtonWidget(
                       onPressed: () {
-                        Product p = widget.product;
-                        p.quantity = countControllerValue!.toInt();
-                        BlocProvider.of<CartBloc>(context).add(AddProduct(p));
+                        BlocProvider.of<CartBloc>(context).add(AddProduct(widget.product));
+                        Navigator.pop(context);
                       },
                       text: 'Add to Cart',
                       options: ButtonOptions(

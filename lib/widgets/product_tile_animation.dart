@@ -1,27 +1,23 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../app_theme.dart';
-import '../bloc/cart_bloc.dart';
+import '../services/app_theme.dart';
 import '../models/product.dart';
-import '../product_detail_widget.dart';
+import 'product_detail_widget.dart';
 
 class ProductTileAnimation extends StatelessWidget {
   final int itemNo;
   final Product product;
 
-  const ProductTileAnimation({this.itemNo = 0, required this.product});
+  const ProductTileAnimation({super.key, this.itemNo = 0, required this.product});
 
   @override
   Widget build(BuildContext context) {
-    final Color color = Colors.primaries[itemNo % Colors.primaries.length];
-    var cartList = BlocProvider.of<CartBloc>(context).items;
-    ContainerTransitionType _transitionType = ContainerTransitionType.fade;
+    ContainerTransitionType transitionType = ContainerTransitionType.fade;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: OpenContainer<bool>(
-        transitionType: _transitionType,
+        transitionType: transitionType,
         openBuilder: (BuildContext _, VoidCallback openContainer) {
           return ProductDetailWidget(
             product: product,
@@ -60,7 +56,7 @@ class ProductTileAnimation extends StatelessWidget {
                             topRight: Radius.circular(8),
                           ),
                           child: Image.network(
-                            product.image,
+                            product.url,
                             width: 100,
                             height: 100,
                             fit: BoxFit.cover,

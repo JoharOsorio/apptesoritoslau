@@ -5,7 +5,6 @@ abstract class CartState {
   final bool isGridView;
   const CartState({this.cartItem = const [], this.isGridView = true});
 
-  @override
   List<Object> get props => [];
 }
 
@@ -37,11 +36,17 @@ class ProductRemoved extends CartState {
   String toString() => 'ProductRemoved { todos: $cartItem }';
 }
 
-class ChangeGallaryViewState extends CartState {
-  final isGridView;
+class CategoryFiltered extends CartState {
+  final List<Product> cartItem;
+  final String category;
 
-  const ChangeGallaryViewState({required this.isGridView}) : super(isGridView: isGridView);
+  const CategoryFiltered({required this.cartItem, required this.category})
+      : super(cartItem: cartItem);
 
   @override
-  List<Object> get props => [isGridView];
+  List<Object> get props => [cartItem, category];
+
+  @override
+  String toString() =>
+      'CategoryFiltered { todos: $cartItem, category: $category }';
 }

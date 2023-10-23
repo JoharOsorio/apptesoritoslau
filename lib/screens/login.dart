@@ -1,3 +1,5 @@
+import 'package:apptesoritoslau/widgets/appbar_widget.dart';
+import 'package:apptesoritoslau/widgets/custom_appbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +12,7 @@ class LoginScreen extends StatelessWidget {
  @override
  Widget build(BuildContext context) {
    return Scaffold(
-    appBar: AppBar(
-      title: const Text('Login'),
-    ),
+    appBar: const AppBarWidget(title: "Login",),
     body: Center(
       child: Form(
         child: Column(
@@ -41,11 +41,13 @@ class LoginScreen extends StatelessWidget {
             child: const Text('Login'),
           ),
           TextButton(
-            onPressed: (){
+            onPressed: () async{
               if(!validateInputs()) {
                 return;
               }
-              signUp();
+              if(await signUp()) {
+                Navigator.of(context).pushNamed('/product-list');
+              }
             },
             child: const Text('Sign up'),
           )

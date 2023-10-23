@@ -43,7 +43,7 @@ abstract class AppTheme {
 }
 
 class LightModeTheme extends AppTheme {
-  late Color primaryColor = const Color(0xFF764ABC);
+  late Color primaryColor = Color.fromARGB(255, 224, 159, 36);
   late Color secondaryColor = const Color(0xFF39D2C0);
   late Color tertiaryColor = const Color(0xFFEE8B60);
   late Color alternate = const Color(0xFFFF5963);

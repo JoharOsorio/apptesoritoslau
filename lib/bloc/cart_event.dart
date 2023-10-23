@@ -33,14 +33,14 @@ class RemoveProduct extends CartEvent {
   String toString() => 'RemoveProduct { index: $productIndex }';
 }
 
-class ChangeGallaryView extends CartEvent {
-  final bool isGridView;
+class CategoryFilter extends CartEvent {
+  final String category;
 
-  const ChangeGallaryView(this.isGridView);
-
-  @override
-  List<Object> get props => [isGridView];
+  const CategoryFilter(this.category);
 
   @override
-  String toString() => 'changed to  { value: $isGridView }';
+  List<Object> get props => [category];
+
+  @override
+  String toString() => 'CategoryFilter { category: $category }';
 }

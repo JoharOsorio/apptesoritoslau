@@ -1,11 +1,12 @@
-import 'package:apptesoritoslau/app_theme.dart';
+import 'package:apptesoritoslau/services/app_theme.dart';
 import 'package:apptesoritoslau/bloc/cart_event.dart';
 import 'package:apptesoritoslau/models/product.dart';
+import 'package:apptesoritoslau/widgets/appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/cart_bloc.dart';
-import 'bloc/cart_state.dart';
+import '../bloc/cart_bloc.dart';
+import '../bloc/cart_state.dart';
 
 class CheckoutWidget extends StatefulWidget {
   const CheckoutWidget({Key? key}) : super(key: key);
@@ -21,7 +22,6 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {
       cartItems = BlocProvider.of<CartBloc>(context).items;
@@ -32,62 +32,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(120),
-        child: AppBar(
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          flexibleSpace: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 8),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.arrow_back_rounded,
-                          color: AppTheme.of(context).primaryText,
-                          size: 30,
-                        ),
-                        onPressed: () async {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
-                      child: Text(
-                        'Back',
-                        style: AppTheme.of(context).title1.override(
-                              fontFamily: 'Poppins',
-                              fontSize: 16,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                  child: Text(
-                    'Cart',
-                    style: AppTheme.of(context).title1,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          actions: [],
-          elevation: 0,
-        ),
-      ),
+      appBar:const AppBarWidget(title: "Cart"),
       backgroundColor: AppTheme.of(context).primaryBackground,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -109,13 +54,13 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                           itemCount: cartItems.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
                               child: Container(
                                 width: double.infinity,
                                 height: 100,
                                 decoration: BoxDecoration(
                                   color: AppTheme.of(context).secondaryBackground,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 4,
                                       color: Color(0x320E151B),
@@ -125,7 +70,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(16, 8, 8, 8),
+                                  padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 8, 8),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,7 +81,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(12),
                                           child: Image.network(
-                                            cartItems[index].image,
+                                            cartItems[index].url,
                                             width: 80,
                                             height: 80,
                                             fit: BoxFit.fitWidth,
@@ -144,14 +89,14 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                                              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
                                               child: Text(
                                                 cartItems[index].name,
                                                 style: AppTheme.of(context).subtitle2.override(
@@ -165,7 +110,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                               style: AppTheme.of(context).bodyText2,
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                                              padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                                               child: Text(
                                                 'Quanity: ${cartItems[index].quantity}',
                                                 style: AppTheme.of(context).bodyText2,
@@ -175,7 +120,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                         ),
                                       ),
                                       IconButton(
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.delete_outline_rounded,
                                           color: Color(0xFFE86969),
                                           size: 20,
@@ -191,101 +136,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                             );
                           });
                     }),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(24, 16, 24, 4),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Price Breakdown',
-                            style: AppTheme.of(context).bodyText2,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(24, 4, 24, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Base Price',
-                            style: AppTheme.of(context).subtitle2,
-                          ),
-                          Text(
-                            '\$156.00',
-                            style: AppTheme.of(context).subtitle1,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(24, 4, 24, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Taxes',
-                            style: AppTheme.of(context).subtitle2,
-                          ),
-                          Text(
-                            '\$24.20',
-                            style: AppTheme.of(context).subtitle1,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(24, 4, 24, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Cleaning Fee',
-                            style: AppTheme.of(context).subtitle2,
-                          ),
-                          Text(
-                            '\$40.00',
-                            style: AppTheme.of(context).subtitle1,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(24, 4, 24, 24),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Total',
-                                style: AppTheme.of(context).subtitle2,
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.info_outlined,
-                                  color: Color(0xFF57636C),
-                                  size: 18,
-                                ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
-                              ),
-                            ],
-                          ),
-                          Text(
-                            '\$230.20',
-                            style: AppTheme.of(context).title1,
-                          ),
-                        ],
-                      ),
-                    ),
+                    
                   ],
                 ),
               ),
@@ -295,7 +146,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
               height: 100,
               decoration: BoxDecoration(
                 color: AppTheme.of(context).primaryColor,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 4,
                     color: Color(0x320E151B),
@@ -309,7 +160,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                 //   topRight: Radius.circular(16),
                 // ),
               ),
-              alignment: AlignmentDirectional(0, -0.35),
+              alignment: const AlignmentDirectional(0, -0.35),
               child: Text(
                 'Checkout (\$230.20)',
                 style: AppTheme.of(context).title2.override(

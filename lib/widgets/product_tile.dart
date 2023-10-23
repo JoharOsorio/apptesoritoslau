@@ -1,11 +1,8 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../app_theme.dart';
-import '../bloc/cart_bloc.dart';
+import '../services/app_theme.dart';
 import '../models/product.dart';
-import '../product_detail_widget.dart';
+import 'product_detail_widget.dart';
 
 class ProductTile extends StatelessWidget {
   final int itemNo;
@@ -15,9 +12,6 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = Colors.primaries[itemNo % Colors.primaries.length];
-    var cartList = BlocProvider.of<CartBloc>(context).items;
-    ContainerTransitionType _transitionType = ContainerTransitionType.fade;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
@@ -59,7 +53,7 @@ class ProductTile extends StatelessWidget {
                           topRight: Radius.circular(8),
                         ),
                         child: Image.network(
-                          product.image,
+                          product.url,
                           width: 100,
                           height: 100,
                           fit: BoxFit.cover,
