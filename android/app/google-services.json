@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "24386170273",
+    "project_id": "app-tesoritos-lau",
+    "storage_bucket": "app-tesoritos-lau.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24386170273:android:5ba4fd8fc1b9c96ecbefe0",
+        "android_client_info": {
+          "package_name": "com.example.apptesoritoslau"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnLYao60DJPlreVSsSo7C8qlSOqAWbNmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
